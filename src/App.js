@@ -1,14 +1,22 @@
 // 项目的根组件
 // App -> index.js -> public/index.html(root)
 // JSX基础-实现基础的条件渲染
-const isLogin  = false
+//定义文章类型
+const articleType = 3 //0 1 3 
+// 定义核心函数（根据文章类型返回不同的JSX模版）
+function getArticleItem (){
+  if(articleType ===0){
+    return <div>我是无图模式</div>
+  }else if(articleType ===1){
+    return <div>我是单图模式</div>
+  }else{
+    return <div>我是三图模式</div>
+  }
+}
 function App() {
   return (
     <div className="App">
-      {/* 逻辑与&& */}
-      {isLogin && <span>this is span</span>}
-      {/* 三元运算 */}
-      {isLogin ? <div>jack</div>:<div>loading...</div> }
+      {getArticleItem()}
     </div>
   );
 }
@@ -56,6 +64,22 @@ export default App;
 //     {/*key的作用：React框架内部使用 提升更新性能的*/}
 //     {list.map(item=><li key={item.id}>{item.name}</li>)}      
 
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// JSX基础-实现基础的条件渲染
+// const isLogin  = false
+// function App() {
+//   return (
+//     <div className="App">
+//       {/* 逻辑与&& */}
+//       {isLogin && <span>this is span</span>}
+//       {/* 三元运算 */}
+//       {isLogin ? <div>jack</div>:<div>loading...</div> }
 //     </div>
 //   );
 // }
