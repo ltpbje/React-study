@@ -1,22 +1,30 @@
 // 项目的根组件
 // App -> index.js -> public/index.html(root)
-// JSX基础-实现基础的条件渲染
-//定义文章类型
-const articleType = 3 //0 1 3 
-// 定义核心函数（根据文章类型返回不同的JSX模版）
-function getArticleItem (){
-  if(articleType ===0){
-    return <div>我是无图模式</div>
-  }else if(articleType ===1){
-    return <div>我是单图模式</div>
-  }else{
-    return <div>我是三图模式</div>
-  }
+
+
+// 触发点击事件
+// const handleClick =()=>{
+//   console.log('触发了点击事件')
+// }
+// // 获取事件参数
+// const handleClick =(e)=>{
+//   console.log('触发了点击事件',e)
+// }
+// // 传递参数
+// const handleClick =(name)=>{
+//   console.log('触发了点击事件',name)
+// }
+
+// 既传递事件参数又传递参数
+const handleClick = (e,name) =>{
+  console.log(e,name)
 }
+
+
 function App() {
   return (
     <div className="App">
-      {getArticleItem()}
+      <button onClick={(e)=>handleClick(e,'张三')}>按钮</button>
     </div>
   );
 }
@@ -80,6 +88,30 @@ export default App;
 //       {isLogin && <span>this is span</span>}
 //       {/* 三元运算 */}
 //       {isLogin ? <div>jack</div>:<div>loading...</div> }
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// // JSX基础-实现基础的条件渲染
+// //定义文章类型
+// const articleType = 3 //0 1 3 
+// // 定义核心函数（根据文章类型返回不同的JSX模版）
+// function getArticleItem (){
+//   if(articleType ===0){
+//     return <div>我是无图模式</div>
+//   }else if(articleType ===1){
+//     return <div>我是单图模式</div>
+//   }else{
+//     return <div>我是三图模式</div>
+//   }
+// }
+// function App() {
+//   return (
+//     <div className="App">
+//       {getArticleItem()}
 //     </div>
 //   );
 // }
