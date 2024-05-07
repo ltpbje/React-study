@@ -78,6 +78,12 @@ const App = () => {
   // 渲染评论列表
   // 1.使用useState维护defaultList
   const [commentList,setCommentList] =useState(defaultList)
+  // 删除自己的评论
+  // 删除功能
+  function handleDel(id){
+    //  对commentList 进行过滤
+    setCommentList(commentList.filter((item)=> item.rpid !==id ))
+  }
   return (
     <div className="app">
       {/* 导航 Tab */}
@@ -146,9 +152,12 @@ const App = () => {
                   <span className="reply-time">{item.ctime}</span>
                   {/* 评论数量 */}
                   <span className="reply-time">点赞数:{item.like}</span>
-                  <span className="delete-btn">
+                  {/* 条件：user.uid===item.user.uid */}
+                  {user.uid === item.user.uid && 
+                  <span onClick={()=>handleDel(item.rpid)} className="delete-btn">
                     删除
                   </span>
+                  }
 
                 </div>
               </div>
