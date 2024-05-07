@@ -1,12 +1,6 @@
 // 项目的根组件
 // App -> index.js -> public/index.html(root)
 
-// 定义组件
-// function Button (){
-//   // 组件内部逻辑
-//   return <button>click me</button>
-// }
-
 
 // useState实现一个计数器按钮
 import {useState} from 'react'
@@ -14,17 +8,30 @@ function App() {
   // 1.调用useState添加一个状态变量
   // count状态变量
   // setCount修改状态变量的方法
-  const [count,setCount] = useState(0) 
+  let [count,setCount] = useState(0) 
 
   // 2.点击事件回调
   const handleClick =()=>{
-    //作用：1.用传入的新值修改count
-    //2.重新使用新的count渲染UI
+    // 直接修改 无法引发视图更新
+    // count ++
     setCount(count +1)
+  }
+
+  // 修改对象状态
+  const [form ,setForm] = useState({name:'jack'})
+  const changeForm =()=>{
+    // 错误的写法
+    // form.name =' john'
+    // 正确写法：setFrom传入一个全新的对象
+    setForm({
+      ...form,
+      name:'john'
+    })
   }
   return (
     <div className="App">
      <button onClick={handleClick}>{count}</button> 
+     <button onClick={changeForm}>{form.name}</button> 
     </div>
   );
 }
@@ -171,6 +178,33 @@ export default App;
 //       {/* 成对标签 */}
 //       <Button></Button>
 
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+// // useState实现一个计数器按钮
+// import {useState} from 'react'
+// function App() {
+//   // 1.调用useState添加一个状态变量
+//   // count状态变量
+//   // setCount修改状态变量的方法
+//   const [count,setCount] = useState(0) 
+
+//   // 2.点击事件回调
+//   const handleClick =()=>{
+//     //作用：1.用传入的新值修改count
+//     //2.重新使用新的count渲染UI
+//     setCount(count +1)
+//   }
+//   return (
+//     <div className="App">
+//      <button onClick={handleClick}>{count}</button> 
 //     </div>
 //   );
 // }
