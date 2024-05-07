@@ -2,11 +2,14 @@
 // App -> index.js -> public/index.html(root)
 
 // 定义组件
-function Button (){
-  // 组件内部逻辑
+// function Button (){
+//   // 组件内部逻辑
+//   return <button>click me</button>
+// }
+const Button = ()=>{
+   // 组件内部逻辑
   return <button>click me</button>
 }
-
 
 function App() {
   return (
