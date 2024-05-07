@@ -2,36 +2,23 @@
 // App -> index.js -> public/index.html(root)
 
 
-// useState实现一个计数器按钮
-import {useState} from 'react'
+// 导入样式 
+import './index.css'
+const style =
+  {color:'red',fontSize:'50px'}
 function App() {
-  // 1.调用useState添加一个状态变量
-  // count状态变量
-  // setCount修改状态变量的方法
-  let [count,setCount] = useState(0) 
 
-  // 2.点击事件回调
-  const handleClick =()=>{
-    // 直接修改 无法引发视图更新
-    // count ++
-    setCount(count +1)
-  }
-
-  // 修改对象状态
-  const [form ,setForm] = useState({name:'jack'})
-  const changeForm =()=>{
-    // 错误的写法
-    // form.name =' john'
-    // 正确写法：setFrom传入一个全新的对象
-    setForm({
-      ...form,
-      name:'john'
-    })
-  }
   return (
     <div className="App">
-     <button onClick={handleClick}>{count}</button> 
-     <button onClick={changeForm}>{form.name}</button> 
+      {/* 行内样式控制 */}
+      <span style={{color:'red',fontSize:'50px'}}>this is a span</span>
+      <br/>
+      <span style={style}>this is a span</span>
+      <hr/>
+      <br/>
+      {/* 通过class类名控制 */}
+      <span className="foo">this is class foo</span>
+
     </div>
   );
 }
@@ -210,3 +197,45 @@ export default App;
 // }
 
 // export default App;
+
+
+
+
+
+
+// // useState实现一个计数器按钮
+// import {useState} from 'react'
+// function App() {
+//   // 1.调用useState添加一个状态变量
+//   // count状态变量
+//   // setCount修改状态变量的方法
+//   let [count,setCount] = useState(0) 
+
+//   // 2.点击事件回调
+//   const handleClick =()=>{
+//     // 直接修改 无法引发视图更新
+//     // count ++
+//     setCount(count +1)
+//   }
+
+//   // 修改对象状态
+//   const [form ,setForm] = useState({name:'jack'})
+//   const changeForm =()=>{
+//     // 错误的写法
+//     // form.name =' john'
+//     // 正确写法：setFrom传入一个全新的对象
+//     setForm({
+//       ...form,
+//       name:'john'
+//     })
+//   }
+//   return (
+//     <div className="App">
+//      <button onClick={handleClick}>{count}</button> 
+//      <button onClick={changeForm}>{form.name}</button> 
+//     </div>
+//   );
+// }
+
+// export default App;
+
