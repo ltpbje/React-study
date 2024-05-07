@@ -1,30 +1,21 @@
 // 项目的根组件
 // App -> index.js -> public/index.html(root)
 
-
-// 触发点击事件
-// const handleClick =()=>{
-//   console.log('触发了点击事件')
-// }
-// // 获取事件参数
-// const handleClick =(e)=>{
-//   console.log('触发了点击事件',e)
-// }
-// // 传递参数
-// const handleClick =(name)=>{
-//   console.log('触发了点击事件',name)
-// }
-
-// 既传递事件参数又传递参数
-const handleClick = (e,name) =>{
-  console.log(e,name)
+// 定义组件
+function Button (){
+  // 组件内部逻辑
+  return <button>click me</button>
 }
 
 
 function App() {
   return (
     <div className="App">
-      <button onClick={(e)=>handleClick(e,'张三')}>按钮</button>
+      {/* 自闭和标签 */}
+      <Button />
+      {/* 成对标签 */}
+      <Button></Button>
+
     </div>
   );
 }
@@ -112,6 +103,38 @@ export default App;
 //   return (
 //     <div className="App">
 //       {getArticleItem()}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+// 触发点击事件
+// const handleClick =()=>{
+//   console.log('触发了点击事件')
+// }
+// // 获取事件参数
+// const handleClick =(e)=>{
+//   console.log('触发了点击事件',e)
+// }
+// // 传递参数
+// const handleClick =(name)=>{
+//   console.log('触发了点击事件',name)
+// }
+
+// // 既传递事件参数又传递参数
+// const handleClick = (e,name) =>{
+//   console.log(e,name)
+// }
+
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <button onClick={(e)=>handleClick(e,'张三')}>按钮</button>
 //     </div>
 //   );
 // }
