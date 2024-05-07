@@ -4,8 +4,9 @@
 
 // 导入样式 
 import './index.css'
-const style =
-  {color:'red',fontSize:'50px'}
+
+const style ={color:'red',fontSize:'50px'}
+
 function App() {
 
   return (
