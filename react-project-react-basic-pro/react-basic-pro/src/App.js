@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import './App.scss'
 import avatar from './images/bozai.png'
-import _ from 'lodash'
+import _, { inRange } from 'lodash'
 import classNames from 'classnames'
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs'
@@ -112,6 +112,7 @@ const App = () => {
 
   // 发表评论
   const [content ,setContent] = useState('')
+  const inputRef = useRef(null)
   const handlePublish=()=>{
     setCommentList([
       ...commentList,
@@ -128,6 +129,10 @@ const App = () => {
         like: 130,
       }
     ])
+    // 清空输入框内容
+    setContent('')
+    // 重新聚焦
+    inputRef.current.focus()
   }
   return (
     <div className="app">
@@ -164,6 +169,7 @@ const App = () => {
             <textarea
               className="reply-box-textarea"
               value={content}
+              ref={inputRef}
               onChange={ (e)=>setContent(e.target.value)}
               placeholder="发一条友善的评论"
             />
