@@ -78,12 +78,7 @@ const tabs = [
   { type: 'time', text: '最新' },
 ]
 
-const App = () => {
-  // 渲染评论列表
-  // 1.使用useState维护defaultList
-  // const [commentList,setCommentList] =useState(_.orderBy( defaultList,'like','desc'))
-
-
+function useGetList(){
   //获取接口数据渲染
   const [commentList,setCommentList] =useState([])
   useEffect(()=>{
@@ -94,6 +89,30 @@ const App = () => {
     }
     getList()
   },[])
+  return {
+    commentList,setCommentList
+  }
+}
+
+const App = () => {
+  // 渲染评论列表
+  // 1.使用useState维护defaultList
+  // const [commentList,setCommentList] =useState(_.orderBy( defaultList,'like','desc'))
+
+
+  // //获取接口数据渲染
+  // const [commentList,setCommentList] =useState([])
+  // useEffect(()=>{
+  //   //请求数据
+  //   async function getList(){
+  //     const res = await axios.get('http://localhost:3004/list')
+  //     setCommentList(res.data)
+  //   }
+  //   getList()
+  // },[])
+
+  const {commentList,setCommentList} = useGetList()
+  
   // 删除自己的评论
   // 删除功能
   function handleDel(id){
