@@ -27,6 +27,7 @@
   // 回调函数可以在每次state发生变化的时候自动执行
   store.subscribe(() => {
     console.log('state变化了', store.getState())
+  // 5. 通过store实例的getState方法获取最新状态更新到视图
     document.getElementById('count').innerText = store.getState().count
   })
 
