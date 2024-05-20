@@ -3,6 +3,7 @@ import axios from "axios";
 const foodsStore= createSlice({
     name:'foodsList',
     initialState:{
+        // 商品列表
         foodsList:[]
     },
     reducers:{
