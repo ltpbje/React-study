@@ -19,7 +19,7 @@ const url ='http://geek.itheima.net/v1_0/channels'
 const fetchChannelList =()=>{
     return async (dispatch)=>{
         const res =await axios.get(url)
-        dispatch(setChannels(res.data.data.channels))
+      dispatch( setChannels(res.data.data.channels))
     }
 }
 export {fetchChannelList}
