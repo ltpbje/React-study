@@ -1,20 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 const foodsStore= createSlice({
-    name:'foodsList',
+    name:'foods',
     initialState:{
         // 商品列表
-        foodsList:[]
+        foodsList:[],
+        // 菜单激活下标值
+        activeIndex: 1
     },
     reducers:{
         // 同步修改数据部分
         setFoodList(state,action){
             state.foodsList = action.payload
+        },
+        //更改activeIndex        
+        changeActiveIndex (state,action){
+            state.activeIndex =action.payload
         }
     }
 })
 
-const {setFoodList}  = foodsStore.actions
+const {setFoodList,changeActiveIndex}  = foodsStore.actions
 
 // 异步获取数据部分
 const fetchFoodsList =()=>{
@@ -25,7 +31,7 @@ const fetchFoodsList =()=>{
       dispatch(setFoodList(res.data))  
   }
 }
-export {fetchFoodsList}
+export {fetchFoodsList,changeActiveIndex}
 
 const reducer = foodsStore.reducer
 
