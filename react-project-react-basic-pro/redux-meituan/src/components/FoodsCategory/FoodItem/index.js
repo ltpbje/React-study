@@ -17,7 +17,7 @@ const Foods = ({
   const dispatch =useDispatch()
   return (
     <dd className="cate-goods">
-      <div className="goods-img-wrap">1
+      <div className="goods-img-wrap">
         <img src={picture} alt="" className="goods-img" />
       </div>
       <div className="goods-info">
