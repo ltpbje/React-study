@@ -1,13 +1,14 @@
 import classNames from 'classnames'
 import Count from '../Count'
 import './index.scss'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {decreCount,increCount} from '../../store/modules/takeaway'
 
 const Cart = () => {
-  const cart = []
   const {cartList} = useSelector(state=>state.foods)
   // 计算总价
   const totalPrice = cartList.reduce((a,c)=>a +c.count*c.price ,0)
+  const dispatch= useDispatch()
   return (
     <div className="cartContainer">
       {/* 遮罩层 添加visible类名可以显示出来 */}
@@ -38,7 +39,7 @@ const Cart = () => {
         )}
       </div>
       {/* 添加visible类名 div会显示出来 */}
-      <div className={classNames('cartPanel')}>
+      <div className={classNames('cartPanel','visible')}>
         <div className="header">
           <span className="text">购物车</span>
           <span className="clearCart">
@@ -48,7 +49,7 @@ const Cart = () => {
 
         {/* 购物车列表 */}
         <div className="scrollArea">
-          {cart.map(item => {
+          {cartList.map(item => {
             return (
               <div className="cartItem" key={item.id}>
                 <img className="shopPic" src={item.picture} alt="" />
@@ -64,6 +65,8 @@ const Cart = () => {
                 <div className="skuBtnWrapper btnGroup">
                   <Count
                     count={item.count}
+                    onMinus={()=>dispatch(decreCount(item.id))}
+                    onPlus={()=>dispatch(increCount(item.id))}
                   />
                 </div>
               </div>

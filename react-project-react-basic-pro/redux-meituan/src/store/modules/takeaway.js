@@ -28,11 +28,23 @@ const foodsStore= createSlice({
             }else{
                 state.cartList.push(action.payload)
             }
+        },
+        //count增
+        increCount(state,action){
+            // 关键点：找到当前要修改谁的count id
+            const item = state.cartList.find(item=>item.id ===action.payload.id)
+            item.count++
+        },
+        // count减
+        decreCount(state,action){
+            // 关键点：找到当前要修改谁的count id
+            const item = state.cartList.find(item=>item.id ===action.payload.id)
+            item.count--
         }
     }
 })
 
-const {setFoodList,changeActiveIndex,addCart}  = foodsStore.actions
+const {setFoodList,changeActiveIndex,addCart,decreCount,increCount}  = foodsStore.actions
 
 // 异步获取数据部分
 const fetchFoodsList =()=>{
@@ -43,7 +55,7 @@ const fetchFoodsList =()=>{
       dispatch(setFoodList(res.data))  
   }
 }
-export {fetchFoodsList,changeActiveIndex,addCart}
+export {fetchFoodsList,changeActiveIndex,addCart,decreCount,increCount}
 
 const reducer = foodsStore.reducer
 

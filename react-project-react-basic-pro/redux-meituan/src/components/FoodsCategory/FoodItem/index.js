@@ -53,7 +53,7 @@ const Foods = ({
               tag,
               count
             }))} 
-            >+</span>
+            ></span>
           </div>
         </div>
       </div>
