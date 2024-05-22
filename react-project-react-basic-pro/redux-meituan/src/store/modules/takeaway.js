@@ -39,12 +39,19 @@ const foodsStore= createSlice({
         decreCount(state,action){
             // 关键点：找到当前要修改谁的count id
             const item = state.cartList.find(item=>item.id ===action.payload.id)
+            if(item.count === 0){
+                return 
+            }
             item.count--
+        },
+        // 清除购物车
+        clearCart(state){
+            state.cartList = []
         }
     }
 })
 
-const {setFoodList,changeActiveIndex,addCart,decreCount,increCount}  = foodsStore.actions
+const {setFoodList,changeActiveIndex,addCart,decreCount,increCount,clearCart}  = foodsStore.actions
 
 // 异步获取数据部分
 const fetchFoodsList =()=>{
@@ -55,7 +62,7 @@ const fetchFoodsList =()=>{
       dispatch(setFoodList(res.data))  
   }
 }
-export {fetchFoodsList,changeActiveIndex,addCart,decreCount,increCount}
+export {fetchFoodsList,changeActiveIndex,addCart,decreCount,increCount,clearCart}
 
 const reducer = foodsStore.reducer
 

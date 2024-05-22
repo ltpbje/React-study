@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import Count from '../Count'
 import './index.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import {decreCount,increCount} from '../../store/modules/takeaway'
+import {clearCart, decreCount,increCount} from '../../store/modules/takeaway'
 
 const Cart = () => {
   const {cartList} = useSelector(state=>state.foods)
@@ -42,7 +42,7 @@ const Cart = () => {
       <div className={classNames('cartPanel','visible')}>
         <div className="header">
           <span className="text">购物车</span>
-          <span className="clearCart">
+          <span onClick={()=>dispatch(clearCart())} className="clearCart">
             清空购物车
           </span>
         </div>
@@ -65,8 +65,8 @@ const Cart = () => {
                 <div className="skuBtnWrapper btnGroup">
                   <Count
                     count={item.count}
-                    onMinus={()=>dispatch(decreCount(item.id))}
-                    onPlus={()=>dispatch(increCount(item.id))}
+                    onMinus={()=>dispatch(decreCount({id:item.id}))}
+                    onPlus={()=>dispatch(increCount({id:item.id}))}
                   />
                 </div>
               </div>
