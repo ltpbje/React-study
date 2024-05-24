@@ -1,9 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
+// import { createHashRouter} from "react-router-dom";
 import Article from '../page/Article/index'
 import Login from '../page/Login/index'
 import Layout from "../page/Layout";
 import About from "../page/About";
 import Board from "../page/Board";
+import NotFound from "../page/NotFound";
 
 const router =createBrowserRouter([
     {
@@ -28,6 +30,10 @@ const router =createBrowserRouter([
     {
         path:'/article/:id/:name',
         element:<Article></Article>
+    },
+    {
+        path:'*',
+        element:<NotFound></NotFound>
     }
 ])
 export default router
