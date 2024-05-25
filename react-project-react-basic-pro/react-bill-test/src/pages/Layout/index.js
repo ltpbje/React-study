@@ -1,14 +1,11 @@
-import { TabBar } from "antd-mobile"
-import { useEffect } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
-import { useDispatch } from 'react-redux'
-import { getBillList } from "@/store/modules/billStore"
-import './index.scss'
+import { TabBar } from 'antd-mobile'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   BillOutline,
   CalculatorOutline,
   AddCircleOutline
 } from 'antd-mobile-icons'
+import './index.scss'
 
 const tabs = [
   {
@@ -29,27 +26,25 @@ const tabs = [
 ]
 
 const Layout = () => {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getBillList())
-  }, [dispatch])
-    // 切换tab页
-    const navigate = useNavigate()
-    const switchRouter =(path)=>{
-        navigate(path)
-    }
+  const location = useLocation()
+  const navigate = useNavigate()
+
   return (
-    <div className="layout">
-      <div className="container">
+    <div className="kaLayout">
+      <div className="page">
+        {/* 二级路由出口 */}
         <Outlet />
       </div>
-      <div className="footer">
-        <TabBar onChange={switchRouter}>
-          {tabs.map(item => (
-            <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
-          ))}
-        </TabBar>
-      </div>
+
+      <TabBar
+        className="tabbar"
+        activeKey={location.pathname}
+        onChange={key => navigate(key)}
+      >
+        {tabs.map(item => (
+          <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
+        ))}
+      </TabBar>
     </div>
   )
 }
