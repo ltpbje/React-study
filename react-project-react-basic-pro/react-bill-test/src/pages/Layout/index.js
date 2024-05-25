@@ -33,11 +33,11 @@ const Layout = () => {
   useEffect(() => {
     dispatch(getBillList())
   }, [dispatch])
-const navigate = useNavigate()
-const switchRouter =(path)=>{
-    console.log(path)
-    navigate(path)
-}
+    // 切换tab页
+    const navigate = useNavigate()
+    const switchRouter =(path)=>{
+        navigate(path)
+    }
   return (
     <div className="layout">
       <div className="container">
