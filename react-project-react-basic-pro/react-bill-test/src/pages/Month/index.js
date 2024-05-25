@@ -1,9 +1,18 @@
 import { NavBar, DatePicker } from 'antd-mobile'
 import './index.scss'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
+import { useSelector } from 'react-redux'
 const Month = () => {
+  // 按月做数据的分组
+  const billList =useSelector(state => state.bill.billList)
+  // useMemo相当与 vue中的计算属性
+  const monthGroup = useMemo(()=>{
+    return billList
+  },[billList])
+  console.log(monthGroup);
+
   // 控制弹窗的打开和关闭   
   const [dateVisible,setDateVisible] =useState(false)
 
@@ -18,6 +27,8 @@ const Month = () => {
     // console.log(formatDate)
     setCurrentDate(formatDate)
   }
+
+
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backArrow={false}>
