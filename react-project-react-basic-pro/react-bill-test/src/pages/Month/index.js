@@ -13,7 +13,7 @@ const Month = () => {
     // return出去计算之后的值
     return _.groupBy(billList,(item)=> dayjs(item.date).format('YYYY-MM'))
   },[billList])
-  console.log(monthGroup)
+  // console.log(monthGroup)
 
   // 控制弹窗的打开和关闭   
   const [dateVisible,setDateVisible] =useState(false)
@@ -22,12 +22,30 @@ const Month = () => {
   const [currentDate,setCurrentDate] =useState(()=>{
     return dayjs(new Date()).format('YYYY-MM')
   })
+
+
+  const [currentMonthList,setCurrentMonthList] = useState([])
+  const monthResult = useMemo(()=>{
+    //  支出 / 收入 / 结余
+   const pay =  currentMonthList.filter(item=>item.type === 'pay').reduce((a,c)=> a+c.money ,0)
+   const income =  currentMonthList.filter(item=>item.type === 'income').reduce((a,c)=> a+c.money ,0)
+   return{
+    pay,
+    income,
+    total:pay+income
+   }
+  },[currentMonthList])
+  // 确认回调
   const onConfirm =(date)=>{
     setDateVisible(false)
 
     const formatDate = dayjs(date).format('YYYY-MM')
     // console.log(formatDate)
     setCurrentDate(formatDate)
+
+    // console.log(monthGroup[formatDate])
+    setCurrentMonthList(monthGroup[formatDate])
+    console.log(currentMonthList)
   }
 
 
@@ -48,15 +66,15 @@ const Month = () => {
           {/* 统计区域 */}
           <div className='twoLineOverview'>
             <div className="item">
-              <span className="money">{100}</span>
+              <span className="money">{monthResult.pay.toFixed(2)}</span>
               <span className="type">支出</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{monthResult.income.toFixed(2)}</span>
               <span className="type">收入</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{monthResult.total.toFixed(2)}</span>
               <span className="type">结余</span>
             </div>
           </div>
