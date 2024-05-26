@@ -6,6 +6,9 @@ import {
   AddCircleOutline
 } from 'antd-mobile-icons'
 import './index.scss'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getBillList } from '@/store/modules/billStore'
 
 const tabs = [
   {
@@ -28,7 +31,10 @@ const tabs = [
 const Layout = () => {
   const location = useLocation()
   const navigate = useNavigate()
-
+  const dispatch =useDispatch()
+  useEffect(()=>{
+    dispatch(getBillList())
+  },[dispatch])
   return (
     <div className="kaLayout">
       <div className="page">

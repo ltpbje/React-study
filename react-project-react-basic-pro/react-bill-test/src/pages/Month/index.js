@@ -4,14 +4,16 @@ import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
+import _ from 'lodash'
 const Month = () => {
   // 按月做数据的分组
   const billList =useSelector(state => state.bill.billList)
   // useMemo相当与 vue中的计算属性
   const monthGroup = useMemo(()=>{
-    return billList
+    // return出去计算之后的值
+    return _.groupBy(billList,(item)=> dayjs(item.date).format('YYYY-MM'))
   },[billList])
-  console.log(monthGroup);
+  console.log(monthGroup)
 
   // 控制弹窗的打开和关闭   
   const [dateVisible,setDateVisible] =useState(false)
