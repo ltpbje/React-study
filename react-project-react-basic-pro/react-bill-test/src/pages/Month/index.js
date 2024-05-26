@@ -1,10 +1,11 @@
 import { NavBar, DatePicker } from 'antd-mobile'
 import './index.scss'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
+import DailyBill from './components/DailyBill'
 const Month = () => {
   // 按月做数据的分组
   const billList =useSelector(state => state.bill.billList)
@@ -25,7 +26,20 @@ const Month = () => {
 
 
   const [currentMonthList,setCurrentMonthList] = useState([])
+  //初始化的时候把当前月的统计数据显示出来
+  useEffect(()=>{
+    const nowDate =dayjs().format('YYYY-MM')
+    if(monthGroup[nowDate])
+      setCurrentMonthList(monthGroup[nowDate])
+  },[monthGroup])
   const monthResult = useMemo(()=>{
+    if(!currentMonthList){
+      return {
+        pay:0,
+        income:0,
+        total:0
+      }
+    }
     //  支出 / 收入 / 结余
    const pay =  currentMonthList.filter(item=>item.type === 'pay').reduce((a,c)=> a+c.money ,0)
    const income =  currentMonthList.filter(item=>item.type === 'income').reduce((a,c)=> a+c.money ,0)
@@ -89,7 +103,10 @@ const Month = () => {
             onClose={()=>setDateVisible(false)}
             max={new Date()}
           />
+
         </div>
+          {/* 单日列表统计 */}
+          <DailyBill></DailyBill>
       </div>
     </div >
   )
