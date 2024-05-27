@@ -116,7 +116,16 @@ const Month = () => {
 
         </div>
           {/* 单日列表统计 */}
-          <DailyBill></DailyBill>
+          {
+            dayGroup.keys.map(key =>{
+              return (
+                <DailyBill key={key} billList={dayGroup.groupData[key]} 
+                  date={key}
+                ></DailyBill>
+              )
+            })
+          }
+          {/* <DailyBill></DailyBill> */}
       </div>
     </div >
   )
