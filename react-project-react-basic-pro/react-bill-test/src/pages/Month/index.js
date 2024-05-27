@@ -62,7 +62,17 @@ const Month = () => {
     console.log(currentMonthList)
   }
 
-
+  // 当前月按照日来做分组
+  const dayGroup =useMemo(()=>{
+    
+    const groupData = _.groupBy(currentMonthList,(item)=>dayjs(item.date).format('YYYY-MM-DD'))
+    const keys = Object.keys(groupData)
+    // return 出去计算之后的值
+    return{
+      groupData,
+      keys
+    }
+  },[currentMonthList]) 
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backArrow={false}>
