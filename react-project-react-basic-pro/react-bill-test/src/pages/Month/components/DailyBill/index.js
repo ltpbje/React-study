@@ -32,7 +32,6 @@ const DailyBill = ({date,billList}) => {
           <span className="date">{date}</span>
           {/* expand 有这个类名 展开的箭头朝上的样 */}
           <span className={classNames('arrow',visible && 'expand')} onClick={()=>{setVisible(!visible)
-            console.log(visible)
           }}></span>
         </div>
         <div className="oneLineOverview">
