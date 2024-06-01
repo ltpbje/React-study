@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons'
 import './index.scss'
 import 'normalize.css'
+import { Outlet } from 'react-router-dom'
 
 const { Header, Sider } = Layout
 
@@ -52,7 +53,8 @@ const GeekLayout = () => {
             style={{ height: '100%', borderRight: 0 }}></Menu>
         </Sider>
         <Layout className="layout-content" style={{ padding: 20 }}>
-          内容
+          {/* 二级路由出口 */}
+          <Outlet></Outlet>
         </Layout>
       </Layout>
     </Layout>
