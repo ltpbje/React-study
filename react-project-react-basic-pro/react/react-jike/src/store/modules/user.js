@@ -1,4 +1,4 @@
-import { request } from "@/utils";
+import { removeToken, request } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 import{getToken,setToken as _setToken}from '@/utils/index'
 const userStore= createSlice({
@@ -19,12 +19,17 @@ const userStore= createSlice({
         },
         setUserInfo(state,action){
             state.userInfo = action.payload
+        },
+        clearUserInfo(state){
+            state.token =''
+            state.userInfo={}
+            removeToken()
         }
     }
 })
 
 // 解构出actionCreater
-const {setToken,setUserInfo} = userStore.actions
+const {setToken,setUserInfo,clearUserInfo} = userStore.actions
 
 //获取reducer函数
 const userReducer = userStore.reducer
@@ -41,6 +46,8 @@ const fetchLogin =(loginForm)=>{
 }
 
 
+
+
 // 异步方法完成获取个用户信息
 const fetchUserInfo =()=>{
     return async (dispatch)=>{
@@ -49,6 +56,6 @@ const fetchUserInfo =()=>{
     }
 }
 
-export {fetchLogin,fetchUserInfo}
+export {fetchLogin,fetchUserInfo,clearUserInfo}
 
 export default userReducer
