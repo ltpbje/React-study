@@ -9,6 +9,7 @@ import locale from 'antd/es/date-picker/locale/zh_CN'
 import { Table, Tag, Space } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
+import { useChannel } from '@/hooks/useChannel'
 
 
 const { Option } = Select
@@ -83,7 +84,8 @@ const Article = () => {
       title: 'wkwebview离线化加载h5资源解决方案'
     }
   ]
-
+  // 获取频道列表
+  const {channelList}= useChannel()
   return (
     <div>
       <Card
@@ -110,8 +112,8 @@ const Article = () => {
               defaultValue="lucy"
               style={{ width: 120 }}
             >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
+              {channelList.map(item=> <Option key={item.key} value={item.key}>{item.name}</Option>)}
+             
             </Select>
           </Form.Item>
 
