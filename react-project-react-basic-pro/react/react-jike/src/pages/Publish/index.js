@@ -17,7 +17,7 @@ import './index.scss'
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import {  useEffect, useState } from 'react'
+import { useState } from 'react'
 import { createArticleAPI } from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
@@ -27,7 +27,7 @@ const { Option } = Select
 const Publish = () => {
   // 获取频道列表
   const {channelList}= useChannel()
-    // const [channelList,setChannelList] = useState([])
+  // const [channelList,setChannelList] = useState([])
     // useEffect(()=>{
     //     const getChannelList =async ()=>{
     //         const res= await getChannelAPI()     
