@@ -109,6 +109,23 @@ const Article = () => {
     }
     getList()
   },[])
+
+  // 筛选功能
+  // 1.准备参数
+  const [reqData,setReqData] = useState({
+    status:'',
+    channel_id:'',
+    begin_pubdate:'',
+    end_pubdate:'',
+    page:1,
+    per_page:4
+  })
+
+  // 2.获取表单的筛选数据
+  const onFinsh =(formValue)=>{
+    console.log(formValue)
+    console.log(formValue[0].format('YYYY-MM'));
+  }
  
   return (
     <div>
@@ -121,7 +138,7 @@ const Article = () => {
         }
         style={{ marginBottom: 20 }}
       >
-        <Form initialValues={{ status: '' }}>
+        <Form initialValues={{ status: '' }} onFinish={onFinsh}>
           <Form.Item label="状态" name="status">
             <Radio.Group>
               <Radio value={''}>全部</Radio>
@@ -133,10 +150,9 @@ const Article = () => {
           <Form.Item label="频道" name="channel_id">
             <Select
               placeholder="请选择文章频道"
-              defaultValue="lucy"
-              style={{ width: 120 }}
+              style={{ width: 200 }}
             >
-              {channelList.map(item=> <Option key={item.key} value={item.key}>{item.name}</Option>)}
+              {channelList.map(item=> <Option key={item.id} value={item.id}>{item.name}</Option>)}
              
             </Select>
           </Form.Item>
