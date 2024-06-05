@@ -101,15 +101,6 @@ const Article = () => {
  // 获取文章列表
   const [list,setList] =useState([])
   const [count,setCount] =useState(0)
-  useEffect(()=>{
-    async function getList(){
-     const res =  await getArticleListAPI()
-     setList(res.data.results)
-     setCount(res.data.total_count)
-    }
-    getList()
-  },[])
-
   // 筛选功能
   // 1.准备参数
   const [reqData,setReqData] = useState({
@@ -120,11 +111,30 @@ const Article = () => {
     page:1,
     per_page:4
   })
+  useEffect(()=>{
+    async function getList(){
+     const res =  await getArticleListAPI(reqData)
+     setList(res.data.results)
+     setCount(res.data.total_count)
+    }
+    getList()
+  },[reqData])
+
+  
 
   // 2.获取表单的筛选数据
   const onFinsh =(formValue)=>{
-    console.log(formValue)
-    console.log(formValue[0].format('YYYY-MM'));
+    // console.log(formValue)
+    setReqData({
+      ...reqData,
+      // 3.把表单收集到数据放到参数中（不可变的方式）
+      channel_id:formValue.channel_id,
+      status:formValue.status,
+      begin_pubdate:formValue.date[0].format('YYYY-MM'),
+      end_pubdate:formValue.date[1].format('YYYY-MM'),
+    })
+    // 4.重新拉取文章列表+渲染table逻辑重复的
+    // reqData依赖项发生变化重复执行副作用函数
   }
  
   return (
