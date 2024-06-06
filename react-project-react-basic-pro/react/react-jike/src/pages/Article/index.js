@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm } from 'antd'
 
 // 引入汉化包时间选择器显示中文
@@ -18,6 +18,8 @@ const { Option } = Select
 const { RangePicker } = DatePicker
 
 const Article = () => {
+
+  const navigate =useNavigate()
   // 准备列数据
   // 定义状态枚举
   const status={
@@ -68,7 +70,7 @@ const Article = () => {
       render: data => {
         return (
           <Space size="middle">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button onClick={()=>navigate(`/publish?id=${data.id}`)} type="primary" shape="circle" icon={<EditOutlined />} />
             <Popconfirm
               title="删除文章"
               description="确定要删除该文章吗?" 
