@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select } from 'antd'
+import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm } from 'antd'
 
 // 引入汉化包时间选择器显示中文
 import locale from 'antd/es/date-picker/locale/zh_CN'
@@ -10,7 +10,7 @@ import { Table, Tag, Space } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import { useChannel } from '@/hooks/useChannel'
-import { getArticleListAPI } from '@/apis/article'
+import { delArticleAPI, getArticleListAPI } from '@/apis/article'
 import { useEffect, useState } from 'react'
 
 
@@ -69,12 +69,21 @@ const Article = () => {
         return (
           <Space size="middle">
             <Button type="primary" shape="circle" icon={<EditOutlined />} />
-            <Button
-              type="primary"
-              danger
-              shape="circle"
-              icon={<DeleteOutlined />}
-            />
+            <Popconfirm
+              title="删除文章"
+              description="确定要删除该文章吗?" 
+              onConfirm={()=>onConfirm(data)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button
+                type="primary"
+                danger
+                shape="circle"
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
+            
           </Space>
         )
       }
@@ -143,6 +152,19 @@ const Article = () => {
     setReqData({
       ...reqData,
       page:page.current
+    })
+  }
+
+
+  // 删除
+  const onConfirm =async (data)=>{
+    console.log('删除点击了')
+    console.log(data)
+    await delArticleAPI(data.id)
+
+    // 调用setReqData时，虽然reqData本身并没有改变，但是React会发现新生成的对象与之前的对象不同，因此会触发组件重渲染和useEffect钩子的执行
+    setReqData({
+      ...reqData
     })
   }
   return (
