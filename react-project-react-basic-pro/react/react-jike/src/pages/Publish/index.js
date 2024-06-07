@@ -11,14 +11,14 @@ import {
   message
 } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import './index.scss'
 
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { createArticleAPI, getArticleById } from '@/apis/article'
+import { createArticleAPI, getArticleById, updateArticleAPI } from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
 
@@ -36,9 +36,9 @@ const Publish = () => {
     //     getChannelList()
     // },[])
   
-
+  const navigate =useNavigate()
   // 提交表单
-  const onFinish=(formValue)=>{
+  const onFinish=async (formValue)=>{
     console.log(formValue)
     if(imageList.length !== imageType) return message.warning('封面类型和图片数量不匹配')
     const { title,content ,channel_id} = formValue
@@ -48,17 +48,41 @@ const Publish = () => {
         content,
         cover:{
             type:imageType,//封面模式
-            images:imageList.map(item=>item.response.data.url)//图片列表
+            // 这里的url处理逻辑只是在新增时候的逻辑
+            // 编辑的时候需要做处理
+            images:imageList.map(item=>{
+              if(item.response){
+                return item.response.data.url
+              }else{
+                return item.url
+              }
+            })//图片列表
         },
         channel_id
     }
     // 2.调用接口提交
-    createArticleAPI(reqData)
-  }  
+    // 处理调用不同的接口 新增 - 新增接口 编辑状态－更新接口id
+    if(articleId){
+      // 更新接口 
+      // 编辑文章表单提交
+      await updateArticleAPI({
+        ...reqData,
+        id:articleId
+      })
+      message.success('编辑成功')
+    }else{
+      await createArticleAPI(reqData)
+      message.success('创建文章成功')
+    }
+    navigate('/article')
+
+
+}  
   const [imageList,setImageList] =useState([])
   const onChange =(value)=>{
     // console.log('上传中',value)
     setImageList(value.fileList)
+
   }
 
   // 切换图片封面类型   
