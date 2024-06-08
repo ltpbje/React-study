@@ -1,14 +1,15 @@
-// React.memo props比较机制
+// React.memo
 
-
-// 1.传递一个简单类型的prop prop变化时组件重新渲染
 import { memo, useState } from "react";
 
-// 2.传递一个引用类型的prop  比较的是新值和旧值的引用是否相等  当父组件的函数重新执行时，实际上形成的是新的数组引用
+// 1.验证默认的渲染机制 子跟着父一起渲染 父重新渲染后子也会重新渲染
+
+
+// 2.memo进行缓存 也就是暂时的记忆  只有props发生变化的时候才会重新渲染 （context）
 const MemoSon = memo(
-  function Son({list}){
+  function Son(){
     console.log('我是子组件 ,我重新渲染了');
-    return <div>this is son{list}</div>
+    return <div>this is son</div>
   }
 )
   // function Son(){
@@ -19,14 +20,11 @@ const MemoSon = memo(
 
 function App() {
   const [count ,setCount] = useState(0)
-  // const num = 0
-
-  const list =[1,2,3]
   return (
     <div className="App">
       this is app
       <button onClick={()=>setCount(count + 1)}>+{count}</button>
-      <MemoSon list={list}></MemoSon>
+      <MemoSon></MemoSon>
     </div>
   );
 }
