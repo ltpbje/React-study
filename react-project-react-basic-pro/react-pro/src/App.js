@@ -1,31 +1,30 @@
-// useMemo
-// 缓存: 遇到消耗非常大的计算时候可能会用到useMemo
-import {  useMemo, useState } from 'react';
-// 计算斐波那契数列之和
-function fib (n) {
-  console.log('计算函数执行了')
-  if (n < 3)
-    return 1
-  return fib(n - 2) + fib(n - 1)
-}
+// React.memo
+
+import { memo, useState } from "react";
+
+// 1.验证默认的渲染机制 子跟着父一起渲染 父重新渲染后子也会重新渲染
+
+
+// 2.memo进行缓存 也就是暂时的记忆  只有props发生变化的时候才会重新渲染 （context）
+const MemoSon = memo(
+  function Son(){
+    console.log('我是子组件 ,我重新渲染了');
+    return <div>this is son</div>
+  }
+)
+  // function Son(){
+  //   console.log('我是子组件 ,我重新渲染了');
+  //   return <div>this is son</div>
+  // }
+
+
 function App() {
- const [count1, setCount1] = useState(0)
-
- const result = useMemo(()=>{
-  // 返回计算得到的结果
-   return fib(count1)
- },[count1])
-
- const [count2, setCount2] = useState(0)
- console.log('组件重新渲染了')
+  const [count ,setCount] = useState(0)
   return (
     <div className="App">
-      <div>
-        this is app  
-      <button onClick={() => setCount1(count1 + 1)}>change count1: {count1}</button>
-      <button onClick={() => setCount2(count2 + 1)}>change count2: {count2}</button>
-      {result}
-      </div>
+      this is app
+      <button onClick={()=>setCount(count + 1)}>+{count}</button>
+      <MemoSon></MemoSon>
     </div>
   );
 }
