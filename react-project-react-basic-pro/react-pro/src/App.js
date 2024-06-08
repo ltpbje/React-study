@@ -1,38 +1,36 @@
-// useInperativeHandle
-// 父组件调用子组件中的函数
+// Class API
 
-import { forwardRef,useImperativeHandle,useRef } from "react";
+import { Component } from "react";
 
-
-// 子组件
-const Son =forwardRef((props,ref)=>{
-  const inputRef =useRef(null)
-  // 实现聚焦逻辑
-  const focusHandler=()=>{
-    inputRef.current.focus()
+class Counter extends Component{
+  //编写组件的逻辑代码
+  // 1.状态变量 2。事件回调 3.UI(JSX)
+  // 1.定义状态变量
+  state={
+    count:0
   }
-  // 把聚焦方法暴露出去
-  useImperativeHandle(ref,()=>{
-    return {
-      focusHandler
-    }
-  })
-  return <input type='text' ref={inputRef}></input>
-})
+  //2.定义事件回调修改状态数据
+  setCount=()=>{
+    // 修改状态数据
+    this.setState({
+      count:this.state.count + 1
+    })
+  }
+  render(){
+    return <button onClick={this.setCount}>{this.state.count}</button>
+  }
 
-// 父组件
+}
+
+
+
+
 function App() {
-  const sonRef = useRef(null)
-  const showRef=()=>{
-    console.log(sonRef)
-    sonRef.current.focusHandler()
-  }
   return (
-    <div className="App">
-      <Son ref={sonRef}></Son>
-      {/* 把函数作为prop传给子组件 */}
-      <button onClick={showRef}>focus</button>
-    </div>
+    <>
+      <Counter></Counter>
+
+    </>
   );
 }
 
