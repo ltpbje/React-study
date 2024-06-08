@@ -1,37 +1,28 @@
-// React.memo props比较机制
+// useCallback
 
 
-// 1.传递一个简单类型的prop prop变化时组件重新渲染
-import { memo, useMemo, useState } from "react";
-
-// 2.传递一个引用类型的prop  比较的是新值和旧值的引用是否相等  当父组件的函数重新执行时，实际上形成的是新的数组引用
+import { memo,  useCallback,  useState } from "react";
 
 
-// 3.保证引用稳定 -> useMemo 组件渲染的过程中缓存一个值
-const MemoSon = memo(
-  function Son({list}){
+
+const Input = memo(
+  function Input({onChange}){
     console.log('我是子组件 ,我重新渲染了');
-    return <div>this is son{list}</div>
+    return <div><input type="text" onChange={(e)=>onChange(e.target.value)}></input></div>
   }
 )
-  // function Son(){
-  //   console.log('我是子组件 ,我重新渲染了');
-  //   return <div>this is son</div>
-  // }
-
 
 function App() {
-  const [count ,setCount] = useState(0)
-  // const num = 0
-  const list= useMemo(()=>{
-    return [1,2,3]
-  },[])
-  // const list  =[1,2,3]
+  //传给子组件的函数
+  const changeHandler =useCallback((value)=>console.log(value),[])
+  //触发父组件重新渲染的函数
+  const [count,setCount] =useState(0)
   return (
     <div className="App">
       this is app
+      {/* 把函数作为prop传给子组件 */}
+      <Input onChange={changeHandler}></Input>
       <button onClick={()=>setCount(count + 1)}>+{count}</button>
-      <MemoSon list={list}></MemoSon>
     </div>
   );
 }
