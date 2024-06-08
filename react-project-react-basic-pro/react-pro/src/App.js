@@ -1,28 +1,26 @@
 // useCallback
 
 
-import { memo,  useCallback,  useState } from "react";
+import { forwardRef,useRef } from "react";
 
 
+// 子组件
+const Son =forwardRef((props,ref)=>{
+  return <input type='text' ref={ref}></input>
+})
 
-const Input = memo(
-  function Input({onChange}){
-    console.log('我是子组件 ,我重新渲染了');
-    return <div><input type="text" onChange={(e)=>onChange(e.target.value)}></input></div>
-  }
-)
-
+// 父组件
 function App() {
-  //传给子组件的函数
-  const changeHandler =useCallback((value)=>console.log(value),[])
-  //触发父组件重新渲染的函数
-  const [count,setCount] =useState(0)
+  const sonRef = useRef(null)
+  const showRef=()=>{
+    console.log(sonRef)
+    sonRef.current.focus()
+  }
   return (
     <div className="App">
-      this is app
+      <Son ref={sonRef}></Son>
       {/* 把函数作为prop传给子组件 */}
-      <Input onChange={changeHandler}></Input>
-      <button onClick={()=>setCount(count + 1)}>+{count}</button>
+      <button onClick={showRef}>focus</button>
     </div>
   );
 }
