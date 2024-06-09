@@ -1,42 +1,58 @@
 // Class API 生命周期
+// 1.父传子直接通过prop子组件标签身上绑定父组件中的数据即可
 
-import { Component, useState } from "react";
+import { Component} from "react";
 
-class Son extends Component{
-  //声明周期函数
-  //组件渲染完毕执行一次 发送网络请求
-  componentDidMount(){
-    console.log('组件渲染完毕了，请求发送起来')
-
-    // 开启定时器
-   this.timer= setInterval(() => {
-      console.log('定时器运行中')
-    }, 1000);
-  }
-
-  // 软件卸载的时候自动执行 副作用清理的工作 清除定时器 清除事件绑定
-  componentWillUnmount(){
-    console.log('组件son被卸载了')
-    // 清除定时器
-    clearInterval(this.timer)
-  }
-
-
+// 子组件
+class Son1 extends Component{
+  
   render(){
-    return <div>i am son</div>
+    return <div>i am son 
+      <div>{this.props.msg}</div>
+      <button onClick={()=>this.props.onGetSonMsg('我是Son1组件中的msg')}>sendMsgToParent</button>
+    </div>
+  }
+
+}
+
+// 子组件
+
+class Son2 extends Component{
+  render(){
+     return <div>i am son2
+        <div>{this.props.msg}</div>
+      </div>
+  }
+}
+
+// 父组件
+class Parent extends Component{
+  state={
+    msg:'this is parent msg'
+    }
+  getSonMsg=(sonMsg)=>{
+    console.log(sonMsg)
+    this.setState({
+      msg:sonMsg
+    })
+  }
+  render(){
+    return( 
+    <div>
+      i am Parent
+      <Son1 msg={this.state.msg} onGetSonMsg={this.getSonMsg}></Son1>
+      <Son2 msg={this.state.msg}></Son2>
+    </div>
+    )
   }
 
 }
 
 
-
-
 function App() {
-  const [show,setShow] =useState(true)
   return (
     <>
-      {show && <Son></Son>}
-      <button onClick={()=>setShow(false)}>unmount</button>
+      <Parent></Parent>
     </>
   );
 }
