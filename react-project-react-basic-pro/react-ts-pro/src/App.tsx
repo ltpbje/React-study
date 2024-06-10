@@ -7,31 +7,19 @@ type User={
   age:number
 }
 function App() {
-  const [user,setUser]= useState<User>({
+  const [user,setUser] =useState<User | null>(null)
+
+ const changeUser =()=>{
+  setUser(null)
+  setUser({
     name:'jack',
     age:18
   })
-
-
-  // const [user,setUser]= useState<User>(()=>({
-  //   name:'jack',
-  //   age:18
-  // }))
-
-
-  // const [user,setUser]= useState<User>()
-const changeUser = ()=>{
-  // setUser({
-  //   name:'ls',
-  //   age:19
-  // })
-  // setUser(undefined)
-} 
-  
-
+ }
   return (
     <>
-      this is app{user.name}
+      this is app
+      {user?.name}
     </>
   )
 }

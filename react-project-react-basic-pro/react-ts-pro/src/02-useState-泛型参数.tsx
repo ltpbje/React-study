@@ -20,7 +20,7 @@ function App() {
 
 
   // const [user,setUser]= useState<User>()
-const changeUser = ()=>{
+  const changeUser = ()=>{
   // setUser({
   //   name:'ls',
   //   age:19
