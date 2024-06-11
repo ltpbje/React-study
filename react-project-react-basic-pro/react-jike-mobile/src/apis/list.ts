@@ -7,7 +7,7 @@ import type { ResType } from "./shared"
 
 // 2.定义具体的接口类型
 
-type ChannelItem ={
+export type ChannelItem ={
     id:number
     name:string
 }
