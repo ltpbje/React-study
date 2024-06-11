@@ -1,21 +1,9 @@
 import { Tabs } from 'antd-mobile'
 import './style.css'
-import {useEffect, useState} from 'react'
-import {fetchChannelAPI, type ChannelItem} from '@/apis/list.ts'
+import {useTabs}from './useTabs'
+import HomeList from './HomeList'
 const Home=()=>{
-    const [channels,setChannels] =  useState<ChannelItem[]>()
-
-    useEffect(()=>{
-        const getChannels =async ()=>{
-            try {
-                const res =await fetchChannelAPI()
-                setChannels(res.data.data.channels)
-            } catch (error) {
-                throw new Error('fetch channel error')
-            }
-        }
-        getChannels()
-    },[])
+    const {channels} = useTabs()
     return(
         <div>
             <div className="tabContainer">
@@ -25,6 +13,7 @@ const Home=()=>{
                         return (
                             <Tabs.Tab title={item.name} key={item.id}>
                                 {/*list组件*/}
+                                <HomeList channelId={ ''+ item.id}></HomeList>
                             </Tabs.Tab>
                         )
                     })}
