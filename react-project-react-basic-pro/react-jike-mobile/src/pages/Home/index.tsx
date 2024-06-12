@@ -13,7 +13,10 @@ const Home=()=>{
                         return (
                             <Tabs.Tab title={item.name} key={item.id}>
                                 {/*list组件*/}
-                                <HomeList channelId={ ''+ item.id}></HomeList>
+                                {/* 别忘嘞加上类名严格控制滚动盒子 */}
+                                <div className='listContainer'>
+                                    <HomeList channelId={ ''+ item.id}></HomeList>
+                                </div>
                             </Tabs.Tab>
                         )
                     })}
