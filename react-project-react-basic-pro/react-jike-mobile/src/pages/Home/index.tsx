@@ -8,7 +8,7 @@ const Home=()=>{
         <div>
             <div className="tabContainer">
                 {/* tabs区域 */}
-                 <Tabs>
+                 <Tabs defaultActiveKey={'0'}>
                     {channels?.map(item=>{
                         return (
                             <Tabs.Tab title={item.name} key={item.id}>

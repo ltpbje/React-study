@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import './index.css'
+// import './index.css'
 // 导入provider
 import { RouterProvider } from 'react-router-dom'
 // 导入router
